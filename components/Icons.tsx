@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 
-type IconProps = HTMLAttributes<SVGElement>
+type IconProps = HTMLAttributes<SVGElement>;
 
 export const Icons = {
   github: (props: IconProps) => (
@@ -27,12 +27,7 @@ export const Icons = {
     </svg>
   ),
   logo: (props: IconProps) => (
-    <svg
-      className="icon"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg className="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="currentColor" {...props}>
       <path
         d="M384 64c0 35.4 28.6 64 64 64 247.4 0 448 200.6 448 448 0 35.4 28.6 64 64 64s64-28.6 64-64C1024 257.8 766.2 0 448 0c-35.4 0-64 28.6-64 64z m0 192c0 35.4 28.6 64 64 64 141.4 0 256 114.6 256 256 0 35.4 28.6 64 64 64s64-28.6 64-64c0-212-172-384-384-384-35.4 0-64 28.6-64 64z m-192 32c0-53-43-96-96-96S0 235 0 288v448c0 159 129 288 288 288s288-129 288-288-129-288-288-288h-32v192h32c53 0 96 43 96 96s-43 96-96 96-96-43-96-96V288z"
         p-id="6946"

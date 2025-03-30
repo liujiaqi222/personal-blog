@@ -8,7 +8,7 @@ const ModeToggle = () => {
   const { setTheme } = useTheme();
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="w-10 px-0">
           <Sun className="h-[1.2rem] w-[1.2rem]scale-100 transition-all 
           dark:scale-0" />

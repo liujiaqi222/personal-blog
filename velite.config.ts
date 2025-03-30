@@ -1,11 +1,11 @@
 import { defineConfig, s } from "velite";
 
 export default defineConfig({
-  root:'content',
+  root: "content",
   collections: {
     posts: {
       name: "Post",
-      pattern: "blog/**/*.md",
+      pattern: ["blog/**/*.mdx", "blog/**/*.md"],
       schema: s
         .object({
           slug: s.path(),
@@ -21,14 +21,14 @@ export default defineConfig({
   },
 
   output: {
-    data: '.velite',
-    assets: 'public/static',
-    base: '/static/',
-    name: '[name]-[hash:6].[ext]',
-    clean:true
+    data: ".velite",
+    assets: "public/static",
+    base: "/static/",
+    name: "[name]-[hash:6].[ext]",
+    clean: true,
   },
   mdx: {
     rehypePlugins: [],
-    remarkPlugins:[]
-  }
+    remarkPlugins: [],
+  },
 });
