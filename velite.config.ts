@@ -9,6 +9,7 @@ export default defineConfig({
       schema: s
         .object({
           slug: s.path(),
+          code: s.mdx(),
           title: s.string(),
           description: s.string().max(999).optional(),
           date: s.isodate(),
