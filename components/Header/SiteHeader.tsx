@@ -5,6 +5,7 @@ import { buttonVariants } from "../ui/button";
 import { Icons } from "../Icons";
 import { MainNav } from "./MainNav";
 import MobileNav from "./MobileNav";
+import ModeToggle from "./ModeToggle";
 
 const SiteHeader = () => {
   return (
@@ -26,6 +27,7 @@ const SiteHeader = () => {
                 <span className="sr-only">Juejin</span>
               </div>
             </Link>
+            <ModeToggle/>
             <MobileNav />
           </nav>
         </div>
