@@ -10,7 +10,7 @@ import ModeToggle from "./ModeToggle";
 const SiteHeader = () => {
   return (
     <header className="sticky top-0 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="px-4 mx-auto container flex items-center h-14 max-w-screen-2xl">
+      <div className="px-6 mx-auto container flex items-center h-14 max-w-screen-2xl">
         <MainNav />
         <div className="flex-1 items-center justify-end gap-2">
           <nav className="flex items-center justify-end">
