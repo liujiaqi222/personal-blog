@@ -9,8 +9,10 @@ type PostPageProps = {
 };
 
 const getPost = async (params: PostPageProps["params"]) => {
-  const slug = params?.slug?.join("/");
-  const post = posts.find((post) => post.slugAsParams === slug);
+// https://nextjs.org/docs/messages/sync-dynamic-apis#possible-ways-to-fix-it
+  const { slug } = await params;
+  const slugStr = slug?.join("/");
+  const post = posts.find((post) => post.slugAsParams === slugStr);
   return post;
 };
 

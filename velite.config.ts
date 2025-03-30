@@ -1,5 +1,7 @@
 import { defineConfig, s } from "velite";
-
+import rehypeSlug from "rehype-slug";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 export default defineConfig({
   root: "content",
   collections: {
@@ -29,7 +31,20 @@ export default defineConfig({
     clean: true,
   },
   mdx: {
-    rehypePlugins: [],
+      rehypePlugins: [
+      rehypeSlug,
+      [rehypePrettyCode, { theme: "one-dark-pro" }],
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "wrap",
+          properties: {
+            className: ["subheading-anchor"],
+            ariaLabel: "Link to section",
+          },
+        },
+      ],
+    ],
     remarkPlugins: [],
   },
 });

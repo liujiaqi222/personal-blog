@@ -26,8 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-    
+    <html lang="en" className="scroll-pt-16">
       <body className={cn("antialiased min-h-screen", geistSans.variable, geistMono.variable)}>
         <Providers>
           <div className="relative flex min-h-dvh flex-col bg-background">
@@ -39,3 +38,4 @@ export default function RootLayout({
     </html>
   );
 }
+

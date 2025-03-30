@@ -1,6 +1,7 @@
 import { posts } from "#site/content";
 import PostItem from "@/components/Post/PostItem";
 import { sortPosts } from "@/lib/utils";
+import "./mdx.css";
 
 const BlogPage = async () => {
   const sortedPost = sortPosts(posts.filter(post=>post.published))
