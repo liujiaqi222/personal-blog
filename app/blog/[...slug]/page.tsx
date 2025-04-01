@@ -5,21 +5,21 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 type PostPageProps = {
-  params: {
+  params: Promise<{
     slug: string[];
-  };
+  }>;
 };
 
-const getPost = async (params: PostPageProps["params"]) => {
+const getPost = async (slug: string[]) => {
   // https://nextjs.org/docs/messages/sync-dynamic-apis#possible-ways-to-fix-it
-  const { slug } = await params;
   const slugStr = slug?.join("/");
   const post = posts.find((post) => post.slugAsParams === slugStr);
   return post;
 };
 
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const post = await getPost(params);
+export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
+  const {slug} = await props.params;
+  const post = await getPost(slug);
 
   if (!post) {
     return {};
@@ -60,8 +60,9 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slugAsParams.split("/") }));
 }
 
-const PostPage = async ({ params }: PostPageProps) => {
-  const post = await getPost(params);
+const PostPage = async (props: PostPageProps) => {
+  const {slug} = await props.params;
+  const post = await getPost(slug);
   if (!post || !post.published) {
     notFound();
   }
