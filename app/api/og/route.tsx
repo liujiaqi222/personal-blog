@@ -26,17 +26,18 @@ export async function GET(req: NextRequest) {
         <div tw="flex relative flex-col p-12 w-full h-full items-start text-black bg-white">
           <div tw="flex items-center">
             <svg
+              viewBox="0 0 1024 1024"
+              version="1.1"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              width="50"
+              height="50"
             >
-              <path d="M4 11a9 9 0 0 1 9 9" />
-              <path d="M4 4a16 16 0 0 1 16 16" />
-              <circle cx="5" cy="19" r="1" />
+              <path
+                d="M800 192L160 424.672 567.328 832 800 192z m-107.008 107.008l-151.488 416.672-107.008-106.976 161.888-213.088-213.088 161.888-106.976-107.008 416.672-151.488z"
+                fill="#000000"
+                fill-opacity=".87"
+                p-id="4045"
+              ></path>
             </svg>
             <p tw="ml-2 font-bold text-2xl">Jiaqi Blog</p>
           </div>

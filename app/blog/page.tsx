@@ -3,6 +3,13 @@ import PostItem from "@/components/Post/PostItem";
 import { sortPosts } from "@/lib/utils";
 import "./mdx.css";
 import QueryPagination from "@/components/QueryPagination";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Jiaqi's blog",
+  description: "web developer blog",
+};
+
 
 const POSTS_PER_PAGE = 5;
 type BlogPageProps = {

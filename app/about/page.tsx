@@ -1,6 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { siteConfig } from "@/config/site";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "About Me",
+  description: "Information about Jiaqi",
+};
 
 const AboutPage = () => {
   return (
