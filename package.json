@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npx velite && next build",
     "start": "next start",
     "lint": "next lint",
     "cloudflare-build": "opennextjs-cloudflare build",
