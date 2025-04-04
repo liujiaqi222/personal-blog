@@ -15,6 +15,10 @@ export type PostInfo = {
 
 export type Post = PostInfo & {
   content: string;
+  toc: {
+    level: number;
+    text: string;
+  }[];
 };
 
 const PostsDirectory = path.join(process.cwd(), "content", "blog");
@@ -73,6 +77,8 @@ export async function getAllPostInfo(): Promise<PostInfo[]> {
   }
 }
 
+// 不再需要remarkExtractHeadings插件，因为我们直接从Markdown内容中提取标题
+
 export async function getPostBySlug(slug: string) {
   try {
     // 首先尝试读取.mdx文件
@@ -90,19 +96,49 @@ export async function getPostBySlug(slug: string) {
     const { data, content } = matter(fileContent);
 
     if (!fileContent || data.published === false) return null;
-    
-    const code = String(await compile(content, { outputFormat: "function-body", rehypePlugins: [rehypePrettyCode] }));
-    
-     const { default: MDXContent } = await run(code, {
-       ...runtime,
-       baseUrl: import.meta.url,
-     });
+
+    // 直接从Markdown内容中提取标题，构建TOC
+    const toc: { level: number; text: string }[] = [];
+    let match;
+
+    // 修改正则表达式以匹配前面可能有空格的标题
+    const headingRegex = /^\s*(#{1,6})\s+(.+)$/gm;
+    const linkRegex = /^\[([^\]]+)\]\(.+\)$/;
+
+    while ((match = headingRegex.exec(content)) !== null) {
+      const level = match[1].length;
+      let text = match[2].trim();
+      const linkMatch = text.match(linkRegex);
+
+      // If it matches the link format AND has captured text inside brackets
+      if (linkMatch && linkMatch[1]) {
+        // Use the text captured inside the square brackets
+        text = linkMatch[1].trim(); // Trim again in case of spaces like [ text ](...)
+      }
+      toc.push({ level, text });
+    }
+
+    // 编译MDX内容
+    const code = String(
+      await compile(content, {
+        outputFormat: "function-body",
+        rehypePlugins: [rehypePrettyCode],
+      })
+    );
+
+    // 运行编译后的代码
+    const { default: MDXContent } = await run(code, {
+      ...runtime,
+      baseUrl: import.meta.url,
+    });
+
     return {
       slug,
       title: data.title,
       description: data.description,
       date: data.date,
       content: MDXContent,
+      toc: toc,
     };
   } catch (error) {
     console.error(`Error reading post ${slug}:`, error);

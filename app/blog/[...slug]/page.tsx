@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { getAllPostInfo, getPostBySlug } from "@/lib/postUtils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import TableOfContents from "@/components/Post/TableOfContents";
 
 type PostPageProps = {
   params: Promise<{
@@ -13,7 +14,7 @@ type PostPageProps = {
 export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
   const { slug } = await props.params;
   const post = await getPostBySlug(slug.join("/"));
-  if (!post) return {}
+  if (!post) return {};
   const ogSearchParams = new URLSearchParams();
   ogSearchParams.set("title", post.title);
 
@@ -60,14 +61,17 @@ const PostPage = async (props: PostPageProps) => {
     notFound();
   }
   return (
-    <article className="p-6 mx-auto container max-w-2xl prose dark:prose-invert">
-      <h1 className="mb-2">{post.title}</h1>
-      {post.description ? <p className="text-xl mt-0 text-muted-foreground ">{post.description}</p> : null}
-
-      <hr className="my-4" />
-
-      <MdxComponent content={post.content} />
-    </article>
+    <div className="container mx-auto p-6 flex justify-center gap-8 relative">
+      <article className="prose dark:prose-invert flex-1 max-w-2xl">
+        <h1 className="mb-2">{post.title}</h1>
+        {post.description ? <p className="text-xl mt-0 text-muted-foreground ">{post.description}</p> : null}
+        <hr className="my-4" />
+        <MdxComponent content={post.content} />
+      </article>
+      <aside className="hidden lg:block sticky top-20 h-fit">
+        <TableOfContents toc={post.toc} />
+      </aside>
+    </div>
   );
 };
 
