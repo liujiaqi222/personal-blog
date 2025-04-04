@@ -12,11 +12,12 @@ type PostItemsProps = {
 };
 
 const PostItem: FC<PostItemsProps> = ({ slug, title, description, date }) => {
+  const link = `/blog${slug}`
   return (
     <article className="flex flex-col gap-2 border-border border-b py-3">
       <div>
         <h2 className="text-xl font-bold">
-          <Link href={slug}>{title}</Link>
+          <Link href={link}>{title}</Link>
         </h2>
       </div>
       <div className="max-w-none text-muted-foreground">{description}</div>
@@ -28,7 +29,7 @@ const PostItem: FC<PostItemsProps> = ({ slug, title, description, date }) => {
             <time dateTime={date}>{formatDate(date)}</time>
           </dd>
         </dl>
-        <Link href={slug} className={cn(buttonVariants({ variant: "link" }), "py-0")}>
+        <Link href={link} className={cn(buttonVariants({ variant: "link" }), "py-0")}>
           Read More →
         </Link>
       </div>

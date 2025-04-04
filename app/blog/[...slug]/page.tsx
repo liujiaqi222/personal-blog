@@ -49,7 +49,7 @@ export async function generateMetadata(props: PostPageProps): Promise<Metadata> 
 export async function generateStaticParams() {
   return (await getAllPostInfo()).map((post) => {
     return {
-      slug: post.slug.split("/").slice(1),
+      slug: post.slug.split("/"),
     };
   });
 }

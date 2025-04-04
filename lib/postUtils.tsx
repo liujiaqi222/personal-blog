@@ -31,7 +31,7 @@ async function processFile(filePath: string, relativePath: string): Promise<Post
 
     // 构建文章slug，保持目录结构
     const parsedPath = path.parse(relativePath);
-    const slug = `/blog/${parsedPath.dir ? parsedPath.dir + "/" : ""}${parsedPath.name}`;
+    const slug = `${parsedPath.dir ? parsedPath.dir + "/" : ""}${parsedPath.name}`;
 
     return {
       slug,
@@ -72,7 +72,7 @@ export async function getAllPostInfo(): Promise<PostInfo[]> {
     // 按日期降序排序
     return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
-    console.error("Error reading blog posts:", error);
+    console.error("Error Get All Post Info:", error);
     return [];
   }
 }

@@ -15,7 +15,6 @@ type QueryPaginationProps = {
 };
 
 const QueryPagination = ({ totalPages, className }: QueryPaginationProps) => {
-  console.log(totalPages)
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
