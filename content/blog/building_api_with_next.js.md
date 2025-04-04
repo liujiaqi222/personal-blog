@@ -114,7 +114,7 @@ Next.js uses **file-system based routing**, meaning you can use folders and file
 
   
 
-  ```
+  ```tsx
   function generateStaticParams() {}
    
   export default function Page() {

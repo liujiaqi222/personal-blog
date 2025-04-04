@@ -1,23 +1,17 @@
 import Image from "next/image";
-import * as runtime from "react/jsx-runtime";
 import Callout from "./Callout";
-
-/**
- * @see https://velite.js.org/guide/using-mdx#rendering-mdx-content
- */
-const useMdxComponent = (code: string) => {
-  const fn = new Function(code);
-  return fn({ ...runtime }).default;
-};
+import { MDXContent } from "mdx/types";
+import Link from "next/link";
 
 const components = {
   Image,
+  Link,
   Callout,
-  
 };
-const MdxComponent = ({ code }: { code: string }) => {
-  const Component = useMdxComponent(code);
-  return <Component components={components} />;
+const MdxComponent = ({ content }: { content: MDXContent }) => {
+  return content({
+    components,
+  });
 };
 
 export default MdxComponent;

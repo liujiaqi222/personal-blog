@@ -10,14 +10,10 @@ type PostPageProps = {
   }>;
 };
 
-/* export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
+export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
   const { slug } = await props.params;
-  const post = await getPost(slug);
-
-  if (!post) {
-    return {};
-  }
-
+  const post = await getPostBySlug(slug.join("/"));
+  if (!post) return {}
   const ogSearchParams = new URLSearchParams();
   ogSearchParams.set("title", post.title);
 
@@ -46,7 +42,7 @@ type PostPageProps = {
       images: [`/api/og?${ogSearchParams.toString()}`],
     },
   };
-} */
+}
 
 // runs at build time and uses the returned list to generate the static pages.
 export async function generateStaticParams() {
@@ -59,7 +55,7 @@ export async function generateStaticParams() {
 
 const PostPage = async (props: PostPageProps) => {
   const { slug } = await props.params;
-  const post = await getPostBySlug(`/blog/${slug.join("/")}`);
+  const post = await getPostBySlug(slug.join("/"));
   if (!post) {
     notFound();
   }
@@ -70,7 +66,7 @@ const PostPage = async (props: PostPageProps) => {
 
       <hr className="my-4" />
 
-      <post.content />
+      <MdxComponent content={post.content} />
     </article>
   );
 };

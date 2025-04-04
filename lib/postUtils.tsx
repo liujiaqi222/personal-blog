@@ -1,8 +1,9 @@
 import { readdir, readFile } from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
-// import { compile, run } from "@mdx-js/mdx";
-// import * as runtime from "react/jsx-runtime";
+import { compile, run } from "@mdx-js/mdx";
+import * as runtime from "react/jsx-runtime";
+import rehypePrettyCode from "rehype-pretty-code";
 
 export type PostInfo = {
   slug: string;
@@ -72,39 +73,39 @@ export async function getAllPostInfo(): Promise<PostInfo[]> {
   }
 }
 
-// export async function getPostBySlug(slug: string) {
-//   try {
-//     // 首先尝试读取.mdx文件
-//     let postPath = path.join(PostsDirectory, `${slug}.mdx`);
-//     let fileContent: string;
+export async function getPostBySlug(slug: string) {
+  try {
+    // 首先尝试读取.mdx文件
+    let postPath = path.join(PostsDirectory, `${slug}.mdx`);
+    let fileContent: string;
 
-//     try {
-//       fileContent = await readFile(postPath, "utf-8");
-//     } catch {
-//       // 如果.mdx文件不存在，尝试读取.md文件
-//       postPath = path.join(PostsDirectory, `${slug}.md`);
-//       fileContent = await readFile(postPath, "utf-8");
-//     }
+    try {
+      fileContent = await readFile(postPath, "utf-8");
+    } catch {
+      // 如果.mdx文件不存在，尝试读取.md文件
+      postPath = path.join(PostsDirectory, `${slug}.md`);
+      fileContent = await readFile(postPath, "utf-8");
+    }
 
-//     const { data, content } = matter(fileContent);
+    const { data, content } = matter(fileContent);
 
-//     if (!fileContent || data.published === false) return null;
+    if (!fileContent || data.published === false) return null;
     
-//     const code = String(await compile(content, { outputFormat: "function-body" }));
+    const code = String(await compile(content, { outputFormat: "function-body", rehypePlugins: [rehypePrettyCode] }));
     
-//      const { default: MDXContent } = await run(code, {
-//        ...runtime,
-//        baseUrl: import.meta.url,
-//      });
-//     return {
-//       slug,
-//       title: data.title,
-//       description: data.description,
-//       date: data.date,
-//       content: MDXContent,
-//     };
-//   } catch (error) {
-//     console.error(`Error reading post ${slug}:`, error);
-//     return null;
-//   }
-// }
+     const { default: MDXContent } = await run(code, {
+       ...runtime,
+       baseUrl: import.meta.url,
+     });
+    return {
+      slug,
+      title: data.title,
+      description: data.description,
+      date: data.date,
+      content: MDXContent,
+    };
+  } catch (error) {
+    console.error(`Error reading post ${slug}:`, error);
+    return null;
+  }
+}

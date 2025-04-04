@@ -36,13 +36,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-pt-16">
+    <html lang="en" suppressHydrationWarning className="scroll-pt-16 light">
       <body className={cn("antialiased min-h-screen", geistSans.variable, geistMono.variable)}>
         <Providers>
           <div className="relative flex min-h-dvh flex-col bg-background">
             <SiteHeader />
             <main className="flex-1 px-5">{children}</main>
-            <SiteFooter/>
+            <SiteFooter />
           </div>
         </Providers>
       </body>
