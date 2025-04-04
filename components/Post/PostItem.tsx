@@ -12,7 +12,7 @@ type PostItemsProps = {
 };
 
 const PostItem: FC<PostItemsProps> = ({ slug, title, description, date }) => {
-  const link = `/blog${slug}`
+  const link = `/blog/${slug}`
   return (
     <article className="flex flex-col gap-2 border-border border-b py-3">
       <div>
