@@ -1,6 +1,6 @@
-import { posts } from "#site/content";
 import MdxComponent from "@/components/Post/MdxComponent";
 import { siteConfig } from "@/config/site";
+import { getAllPostInfo, getPostBySlug } from "@/lib/postUtils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -10,15 +10,8 @@ type PostPageProps = {
   }>;
 };
 
-const getPost = async (slug: string[]) => {
-  // https://nextjs.org/docs/messages/sync-dynamic-apis#possible-ways-to-fix-it
-  const slugStr = slug?.join("/");
-  const post = posts.find((post) => post.slugAsParams === slugStr);
-  return post;
-};
-
-export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
-  const {slug} = await props.params;
+/* export async function generateMetadata(props: PostPageProps): Promise<Metadata> {
+  const { slug } = await props.params;
   const post = await getPost(slug);
 
   if (!post) {
@@ -53,17 +46,21 @@ export async function generateMetadata(props: PostPageProps): Promise<Metadata> 
       images: [`/api/og?${ogSearchParams.toString()}`],
     },
   };
-}
+} */
 
 // runs at build time and uses the returned list to generate the static pages.
 export async function generateStaticParams() {
-  return posts.map((post) => ({ slug: post.slugAsParams.split("/") }));
+  return (await getAllPostInfo()).map((post) => {
+    return {
+      slug: post.slug.split("/").slice(1),
+    };
+  });
 }
 
 const PostPage = async (props: PostPageProps) => {
-  const {slug} = await props.params;
-  const post = await getPost(slug);
-  if (!post || !post.published) {
+  const { slug } = await props.params;
+  const post = await getPostBySlug(`/blog/${slug.join("/")}`);
+  if (!post) {
     notFound();
   }
   return (
@@ -73,7 +70,7 @@ const PostPage = async (props: PostPageProps) => {
 
       <hr className="my-4" />
 
-      <MdxComponent code={post.body} />
+      <post.content />
     </article>
   );
 };

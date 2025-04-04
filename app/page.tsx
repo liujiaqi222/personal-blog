@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { posts } from "#site/content";
 import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
-import { cn, sortPosts } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import PostItem from "@/components/Post/PostItem";
+import { getAllPostInfo } from "@/lib/postUtils";
 
-export default function Home() {
-  const latestPosts = sortPosts(posts).slice(0, 5);
+export default async function Home() {
+  const latestPosts = await getAllPostInfo().then((posts) => posts.slice(0, 3));
   return (
     <>
       <section className="space-y-6 pb-8 pt-6 md:pb-12 md:mt-10 lg:py-32">
