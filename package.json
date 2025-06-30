@@ -4,8 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev:content": "velite --watch",
-    "build:content": "velite --clean",
     "dev:next": "next dev",
     "build:next": "next build",
     "dev": "next dev",
