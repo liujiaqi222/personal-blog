@@ -44,23 +44,7 @@ Next.js uses **file-system based routing**, meaning you can use folders and file
 
   
 
-  ```ts
-  export default function DashboardLayout({
-    children,
-  }: {
-    children: React.ReactNode
-  }) {
-    return (
-      <html lang="en">
-        <body>
-          {/* Layout UI */}
-          {/* Place children where you want to render a page or nested layout */}
-          <main>{children}</main>
-        </body>
-      </html>
-    )
-  }
-  ```
+
 
   The layout above is called a [root layout](https://nextjs.org/docs/app/api-reference/file-conventions/layout#root-layouts) because it's defined at the root of the `app` directory. The root layout is **required** and must contain `html` and `body` tags.
 
@@ -114,13 +98,6 @@ Next.js uses **file-system based routing**, meaning you can use folders and file
 
   
 
-  ```tsx
-  function generateStaticParams() {}
-   
-  export default function Page() {
-    return <h1>Hello, Blog Post Page!</h1>
-  }
-  ```
 
   > **Good to know**: Wrapping a folder name in square brackets (e.g. `[slug]`) creates a special [dynamic route segment](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes) used to generate multiple pages from data. This is useful for blog posts, product pages, etc.
 
@@ -140,15 +117,6 @@ Next.js uses **file-system based routing**, meaning you can use folders and file
 
   
 
-  ```ts
-  export default function BlogLayout({
-    children,
-  }: {
-    children: React.ReactNode
-  }) {
-    return <section>{children}</section>
-  }
-  ```
 
   If you were to combine the two layouts above, the root layout (`app/layout.js`) would wrap the blog layout (`app/blog/layout.js`), which would wrap the blog (`app/blog/page.js`) and blog post page (`app/blog/[slug]/page.js`).
 
@@ -165,22 +133,6 @@ Next.js uses **file-system based routing**, meaning you can use folders and file
 
   
 
-  ```ts
-  import Link from 'next/link'
-   
-  export default async function Post({ post }) {
-    const posts = await getPosts()
-   
-    return (
-      <ul>
-        {posts.map((post) => (
-          <li key={post.slug}>
-            <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-  ```
+
 
   `<Link>` is the primary and recommended way to navigate between routes in your Next.js application. However, you can also use the [`useRouter` hook](https://nextjs.org/docs/app/api-reference/functions/use-router) for more advanced navigation.

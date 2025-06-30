@@ -10,11 +10,7 @@
     "build:next": "next build",
     "dev": "next dev",
     "build": "next build",
-    "lint": "next lint",
-    "cloudflare-build": "opennextjs-cloudflare build",
-    "preview": "opennextjs-cloudflare && wrangler dev",
-    "deploy": "wrangler deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.0",
@@ -37,7 +33,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@opennextjs/cloudflare": "^0.6.6",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/mdx": "^2.0.13",

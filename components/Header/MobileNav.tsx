@@ -26,7 +26,7 @@ const MobileNav = () => {
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
         <div className="flex flex-col gap-3 mt-3">
-          <Link href="/blogs">Blog</Link>
+          <Link href="/blog">Blog</Link>
           <Link href="/about">About</Link>
 
           <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">

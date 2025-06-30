@@ -77,8 +77,6 @@ export async function getAllPostInfo(): Promise<PostInfo[]> {
   }
 }
 
-// 不再需要remarkExtractHeadings插件，因为我们直接从Markdown内容中提取标题
-
 export async function getPostBySlug(slug: string) {
   try {
     // 首先尝试读取.mdx文件
@@ -125,7 +123,6 @@ export async function getPostBySlug(slug: string) {
         rehypePlugins: [rehypePrettyCode],
       })
     );
-
     // 运行编译后的代码
     const { default: MDXContent } = await run(code, {
       ...runtime,

@@ -1,19 +1,19 @@
 import Image from "next/image";
-import Callout from "./Callout";
+import { ReactNode, isValidElement } from "react";
 import { MDXContent } from "mdx/types";
 import Link from "next/link";
+import Callout from "./Callout";
 import { cn, generateSlug } from "@/lib/utils";
-import { ReactNode } from "react";
-import React from "react";
+
 
 const createHeading = (As: "h1" | "h2" | "h3" | "h4" | "h5" | "h6") => {
   const Heading = (props: { className?: string; children: ReactNode }) => {
     const title =
       typeof props.children === "string"
         ? props.children
-        : React.isValidElement(props.children)
-        ? (props.children.props as { children: string }).children
-        : (props.children as string);
+        : isValidElement(props.children)
+          ? (props.children.props as { children: string }).children
+          : (props.children as string);
 
     return (
       <Link

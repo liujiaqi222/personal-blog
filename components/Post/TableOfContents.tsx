@@ -12,9 +12,9 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
   let minLevel = 6;
   toc.forEach(({ level }) => (minLevel = Math.min(level, minLevel)));
   return (
-    <div className="space-y-2">
-      <h2 className="font-medium">目录</h2>
-      <ul className="space-y-1">
+    <div className="flex flex-col gap-2">
+      <h2 className="font-bold text-lg">目录</h2>
+      <ul className="flex flex-col gap-2">
         {toc.map((title, index) => (
           <li
             key={index}
